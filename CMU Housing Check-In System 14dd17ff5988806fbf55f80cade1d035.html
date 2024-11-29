@@ -1,0 +1,722 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CMU Housing Check-In System</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="14dd17ff-5988-806f-bf55-f80cade1d035" class="page sans"><header><img class="page-cover-image" src="CMU%20Housing%20Check-In%20System%2014dd17ff5988806fbf55f80cade1d035/Carnegie_Mellon_University-Logo.wine.png" style="object-position:center 48.33%"/><h1 class="page-title">CMU Housing Check-In System</h1><p class="page-description"></p></header><div class="page-body"><hr id="14dd17ff-5988-8078-b9b8-c823e2ca231d"/><h1 id="14dd17ff-5988-80b7-9c6d-c8e413d301d1" class=""><strong>Overview</strong></h1><p id="14dd17ff-5988-804d-85ca-c5c3bb60138f" class="">The Carnegie Mellon University Housing Check-In System was developed to digitize the housing check-in process for over 1,000 students annually. The project addressed inefficiencies in the paper-based workflow, reducing processing time by 50% and significantly improving user satisfaction. The system was designed, developed, and deployed with validation and oversight from the Director of Student Affairs at CMU.</p><hr id="14dd17ff-5988-8038-b864-d4edebbab171"/><h1 id="14dd17ff-5988-80b7-bbc4-cd664298f7d5" class=""><strong>Project Highlights</strong></h1><ul id="14dd17ff-5988-80c6-a051-fe3f24f5d659" class="bulleted-list"><li style="list-style-type:disc"><strong>Impact</strong>: Reduced processing time by 50%, saving 300+ staff hours annually.</li></ul><ul id="14dd17ff-5988-8040-81f7-f69386dcc68b" class="bulleted-list"><li style="list-style-type:disc"><strong>Tech Stack</strong>: Node.js, SQL Server, Bootstrap, custom CSS.</li></ul><ul id="14dd17ff-5988-800b-a0ad-d2a672229d9e" class="bulleted-list"><li style="list-style-type:disc"><strong>Accessibility</strong>: WCAG 2.1 compliance and mobile optimization.</li></ul><ul id="14dd17ff-5988-8014-a54c-e7765626773e" class="bulleted-list"><li style="list-style-type:disc"><strong>Security</strong>: TLS encryption, token-based authentication, and role-based access controls.</li></ul><hr id="14dd17ff-5988-8022-bbef-d124cb578c81"/><h1 id="14dd17ff-5988-8053-bc86-fd737f8a4426" class=""><strong>Problem Statement</strong></h1><p id="14dd17ff-5988-80cd-a01f-c051631e13bc" class="">The housing check-in process previously relied on paper forms, resulting in:</p><ol type="1" id="14dd17ff-5988-80e7-aa1e-f62b0060a5fc" class="numbered-list" start="1"><li><strong>Long Wait Times</strong>: Students often queued for hours.</li></ol><ol type="1" id="14dd17ff-5988-80f4-892e-c13a70fba7f8" class="numbered-list" start="2"><li><strong>Frequent Errors</strong>: Manual data entry caused inconsistencies in records.</li></ol><ol type="1" id="14dd17ff-5988-80bf-a259-fc4d869bd961" class="numbered-list" start="3"><li><strong>Lack of Real-Time Updates</strong>: Staff could not monitor or manage check-ins effectively.</li></ol><p id="14dd17ff-5988-80c1-903f-e4155d683a3e" class="">The digitization effort aimed to address these issues, improving the overall experience for students and staff.</p><hr id="14dd17ff-5988-80ba-9107-f05fcd2394f0"/><h1 id="14dd17ff-5988-801c-acc8-f633013d275d" class=""><strong>Solution Overview</strong></h1><p id="14dd17ff-5988-8016-be85-d35341b6fb07" class="">The solution was a responsive, web-based application integrated with CMU’s student database. Key features included:</p><ol type="1" id="14dd17ff-5988-8045-a8a3-e915da9feaa2" class="numbered-list" start="1"><li><strong>Real-Time Updates</strong>: Enabled instantaneous data synchronization across departments.</li></ol><ol type="1" id="14dd17ff-5988-80da-aa76-db2186aec412" class="numbered-list" start="2"><li><strong>Batch Processing</strong>: Allowed staff to perform bulk updates, saving significant time.</li></ol><ol type="1" id="14dd17ff-5988-801c-9e8e-e1eb746f108a" class="numbered-list" start="3"><li><strong>Responsive Interface</strong>: Optimized for desktop and mobile platforms using Bootstrap and custom CSS.</li></ol><hr id="14dd17ff-5988-8065-a9b7-d1a6b6317c23"/><p id="14dd17ff-5988-8041-86a4-e718d066a53e" class=""><strong>Table of contents</strong></p><nav id="14dd17ff-5988-809d-aa27-ce5f6a6dca10" class="block-color-default_background table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-80b7-9c6d-c8e413d301d1"><strong>Overview</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-80b7-bbc4-cd664298f7d5"><strong>Project Highlights</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-8053-bc86-fd737f8a4426"><strong>Problem Statement</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-801c-acc8-f633013d275d"><strong>Solution Overview</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-80f8-a0fd-e3c832ca6298"><strong>System Architecture</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-800f-a530-d0997f7f4627"><strong>Backend</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-8010-bcfd-fd285ee7fae8"><strong>Frontend</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-80fb-868e-ef108e551cbf"><strong>Deployment</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-80d4-86d6-f2113e7560ae"><strong>API Documentation</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-80b1-b31c-f0a468293c49">Endpoints</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14dd17ff-5988-80bb-8afa-fbd6e9116ae6"><strong>Authentication</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14dd17ff-5988-80dd-b390-cb71be6a4c0c"><strong>Error Responses</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-80dc-8eff-ddc6757eeab2"><strong>User Documentation</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-8015-880b-c6ea6fdb5789"><strong>Staff Dashboard</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-80a7-98f4-f83de5ac6b4b"><strong>Troubleshooting</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-806d-8f88-e96184044532"><strong>Maintenance Guide</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-807b-821f-db6e0b64fdc1"><strong>Database Integration</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-80d0-b868-e1cecc793949"><strong>Logging</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-8011-9949-f0d8506b15a4"><strong>Version Control</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-8031-8f63-cfad8cb2caaf"><strong>Routine Maintenance Tasks</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-800e-9b61-fdf9cb64ca87"><strong>Future Enhancements</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-804b-820c-f75ad04154f4"><strong>Lessons Learned</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-803c-b40b-e645235ff90e"><strong>Impact</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-801b-b078-f37229b59fa8"><strong>Conclusion</strong></a></div></nav><hr id="14dd17ff-5988-80af-83a2-cb17268adfb5"/><h1 id="14dd17ff-5988-80f8-a0fd-e3c832ca6298" class=""><strong>System Architecture</strong></h1><p id="14dd17ff-5988-8097-89db-c52c494f23e0" class="">The CMU Housing Check-In System was designed with a robust architecture to ensure efficiency, scalability, and security. Each component of the system played a critical role in streamlining the housing check-in process.</p><figure id="14dd17ff-5988-80da-8acd-ce6ce8ef1241" class="image"><a href="CMU%20Housing%20Check-In%20System%2014dd17ff5988806fbf55f80cade1d035/Screenshot_2024-11-28_at_10.10.29_PM.png"><img style="width:707.984375px" src="CMU%20Housing%20Check-In%20System%2014dd17ff5988806fbf55f80cade1d035/Screenshot_2024-11-28_at_10.10.29_PM.png"/></a><figcaption>CMU Housing Check-In System Architecture </figcaption></figure><h2 id="14dd17ff-5988-800f-a530-d0997f7f4627" class=""><strong>Backend</strong></h2><p id="14dd17ff-5988-809f-9455-c81eff6c6eef" class="">The backend was developed using <strong>Node.js</strong>, chosen for its ability to handle asynchronous operations efficiently, which was critical for managing real-time interactions and high volumes of concurrent requests.</p><ul id="14dd17ff-5988-8075-b15f-ec5b5b4dba8b" class="bulleted-list"><li style="list-style-type:disc"><strong>Core Functionality</strong>:<ul id="14dd17ff-5988-808e-bdd5-ffeafaa8040b" class="bulleted-list"><li style="list-style-type:circle">Handled API requests and responses to support real-time updates.</li></ul><ul id="14dd17ff-5988-804e-9178-c1525984093c" class="bulleted-list"><li style="list-style-type:circle">Managed communication with the SQL Server database for data retrieval, insertion, and updates.</li></ul></li></ul><ul id="14dd17ff-5988-80bb-bbcb-ee64343f4e0d" class="bulleted-list"><li style="list-style-type:disc"><strong>Database Integration</strong>:<ul id="14dd17ff-5988-80e4-a30c-dd4c3bf9bc78" class="bulleted-list"><li style="list-style-type:circle">Connected directly to the CMU student database, which was built on <strong>Microsoft SQL Server</strong>.</li></ul><ul id="14dd17ff-5988-803b-a7fc-d4c0ea4a53f6" class="bulleted-list"><li style="list-style-type:circle">Used optimized SQL queries to ensure rapid data transactions, reducing latency for user operations.</li></ul><ul id="14dd17ff-5988-805f-8a85-db8d60acc448" class="bulleted-list"><li style="list-style-type:circle">Implemented data integrity checks to prevent errors during batch operations.</li></ul></li></ul><ul id="14dd17ff-5988-8025-ad4e-d7192bf4e56d" class="bulleted-list"><li style="list-style-type:disc"><strong>Security Measures</strong>:<ul id="14dd17ff-5988-806a-98d9-d3a5245fb1e6" class="bulleted-list"><li style="list-style-type:circle">Enforced strict authentication and role-based access controls to ensure only authorized personnel could access or modify data.</li></ul><ul id="14dd17ff-5988-80e4-bfa7-c764b64da6db" class="bulleted-list"><li style="list-style-type:circle">All sensitive data, including login credentials, was encrypted in transit using TLS.</li></ul></li></ul><hr id="14dd17ff-5988-80aa-9432-f90804229ca4"/><h2 id="14dd17ff-5988-8010-bcfd-fd285ee7fae8" class=""><strong>Frontend</strong></h2><p id="14dd17ff-5988-8016-8932-d5520f1fe8ef" class="">The frontend was built using the <strong>Bootstrap Framework</strong>, with custom CSS to align the design with CMU’s institutional branding and ensure an intuitive user experience.</p><ul id="14dd17ff-5988-808a-ae80-e9cbc0054e35" class="bulleted-list"><li style="list-style-type:disc"><strong>Responsive Design</strong>:<ul id="14dd17ff-5988-8067-8aef-e1eebd0e563f" class="bulleted-list"><li style="list-style-type:circle">Provided seamless functionality across devices, including desktops, tablets, and mobile phones.</li></ul><ul id="14dd17ff-5988-8057-84f4-d22541eb38ff" class="bulleted-list"><li style="list-style-type:circle">Enabled staff to use the system from various locations during housing check-in events.</li></ul></li></ul><ul id="14dd17ff-5988-80b8-9fa8-cb6f697774e3" class="bulleted-list"><li style="list-style-type:disc"><strong>Custom Features</strong>:<ul id="14dd17ff-5988-8090-82f0-e2621e721417" class="bulleted-list"><li style="list-style-type:circle">Designed a dynamic dashboard for staff to view and update student statuses in real-time.</li></ul><ul id="14dd17ff-5988-8020-a018-eb474f8d54c6" class="bulleted-list"><li style="list-style-type:circle">Included user-friendly forms with validation for bulk operations, such as batch check-ins and housing assignment changes.</li></ul></li></ul><ul id="14dd17ff-5988-80e1-84da-f8f0fe880caf" class="bulleted-list"><li style="list-style-type:disc"><strong>Accessibility Enhancements</strong>:<ul id="14dd17ff-5988-803c-b845-d73d45c62757" class="bulleted-list"><li style="list-style-type:circle">Adhered to WCAG 2.1 standards, ensuring the platform was accessible to all users, including those with disabilities.</li></ul><ul id="14dd17ff-5988-80da-94db-ea18583bc07a" class="bulleted-list"><li style="list-style-type:circle">Used clear visual cues and error messages to guide users through the check-in process.</li></ul></li></ul><hr id="14dd17ff-5988-8088-89b9-c069e0215b87"/><h2 id="14dd17ff-5988-80fb-868e-ef108e551cbf" class=""><strong>Deployment</strong></h2><p id="14dd17ff-5988-80ba-8e80-ea85e48e5f2b" class="">The application was deployed on CMU’s private network to maintain a high level of security and compliance with university IT policies.</p><ul id="14dd17ff-5988-804d-956b-e0d1f6ab3e28" class="bulleted-list"><li style="list-style-type:disc"><strong>Infrastructure</strong>:<ul id="14dd17ff-5988-8062-be40-c0dd99ad8217" class="bulleted-list"><li style="list-style-type:circle">Hosted on on-premises servers managed by CMU’s IT department.</li></ul><ul id="14dd17ff-5988-80c7-b943-ed83cd86c8e2" class="bulleted-list"><li style="list-style-type:circle">Configured to integrate seamlessly with existing university systems, including authentication and student records.</li></ul></li></ul><ul id="14dd17ff-5988-80a9-aa9b-efaec9778f1b" class="bulleted-list"><li style="list-style-type:disc"><strong>Deployment Process</strong>:<ul id="14dd17ff-5988-804f-bedf-ebb94eee2d71" class="bulleted-list"><li style="list-style-type:circle">Used a CI/CD pipeline for efficient testing and deployment, minimizing downtime.</li></ul><ul id="14dd17ff-5988-80da-acf9-c5ad08836953" class="bulleted-list"><li style="list-style-type:circle">Staging and production environments were set up to thoroughly test changes before live deployment.</li></ul></li></ul><ul id="14dd17ff-5988-80b6-9f28-c4ff1492ec5f" class="bulleted-list"><li style="list-style-type:disc"><strong>Data Security</strong>:<ul id="14dd17ff-5988-805d-ba7f-d3d7721f1ffb" class="bulleted-list"><li style="list-style-type:circle">All API endpoints were secured using token-based authentication.</li></ul><ul id="14dd17ff-5988-8003-9f90-c8e0e7371805" class="bulleted-list"><li style="list-style-type:circle">Regular vulnerability assessments were conducted to identify and mitigate potential risks.</li></ul><ul id="14dd17ff-5988-8090-a9fd-f3d2af59d0ad" class="bulleted-list"><li style="list-style-type:circle">Backups of the SQL Server database were scheduled daily to prevent data loss.</li></ul></li></ul><ul id="14dd17ff-5988-807b-a2d5-c981b62801a8" class="bulleted-list"><li style="list-style-type:disc"><strong>Monitoring and Logging</strong>:<ul id="14dd17ff-5988-8090-ab25-e413209c8b9d" class="bulleted-list"><li style="list-style-type:circle">Deployed monitoring tools to track server uptime, API performance, and database health.</li></ul><ul id="14dd17ff-5988-807d-8ae8-c35d9122ef0b" class="bulleted-list"><li style="list-style-type:circle">Logs were stored securely and reviewed periodically for any irregularities.</li></ul></li></ul><hr id="14dd17ff-5988-8025-95f0-d961c7e30629"/><h1 id="14dd17ff-5988-80d4-86d6-f2113e7560ae" class=""><strong>API Documentation</strong></h1><h2 id="14dd17ff-5988-80b1-b31c-f0a468293c49" class="">Endpoints</h2><p id="14dd17ff-5988-804b-9a82-dbefeec8ff5c" class=""><strong>1. GET /students</strong></p><p id="14dd17ff-5988-802b-af4e-e57e791a3cd4" class="">Fetches a list of all students along with their current check-in statuses.</p><ul id="14dd17ff-5988-8096-b77a-c5400ee49362" class="bulleted-list"><li style="list-style-type:disc"><strong>Parameters</strong>: None</li></ul><ul id="14dd17ff-5988-80e9-9939-fcb289081fe2" class="bulleted-list"><li style="list-style-type:disc"><strong>Headers</strong>:<ul id="14dd17ff-5988-800a-9953-c04d69276e2e" class="bulleted-list"><li style="list-style-type:circle"><code>Authorization</code>: Bearer token (required)</li></ul></li></ul><ul id="14dd17ff-5988-80ba-b47c-f41d7ef6db89" class="bulleted-list"><li style="list-style-type:disc"><strong>Sample Response</strong>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-8043-836d-d2ed4ec204a8" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">[
+  {
+    &quot;student_id&quot;: &quot;12345&quot;,
+    &quot;name&quot;: &quot;John Doe&quot;,
+    &quot;status&quot;: &quot;Checked-In&quot;
+  },
+  {
+    &quot;student_id&quot;: &quot;67890&quot;,
+    &quot;name&quot;: &quot;Jane Smith&quot;,
+    &quot;status&quot;: &quot;Not Checked-In&quot;
+  }
+]</code></pre></li></ul><ul id="14dd17ff-5988-80d5-bbae-e6e28888822a" class="bulleted-list"><li style="list-style-type:disc"><strong>Use Case</strong>: Enables staff to monitor the status of all students in real time.</li></ul><hr id="14dd17ff-5988-8004-9833-cadc055715eb"/><p id="14dd17ff-5988-8063-800d-eb9c0928ccde" class=""><strong>2. POST /checkin</strong></p><p id="14dd17ff-5988-8029-81c3-efdc3c00423c" class="">Updates the check-in status of a specific student.</p><ul id="14dd17ff-5988-80ce-8d44-dd769259fd2b" class="bulleted-list"><li style="list-style-type:disc"><strong>Parameters (Body)</strong>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-80fd-8e23-fd7d9fba8418" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;student_id&quot;: &quot;12345&quot;,
+  &quot;status&quot;: &quot;Checked-In&quot;
+}</code></pre></li></ul><ul id="14dd17ff-5988-8039-ac18-d60cc62a0fa1" class="bulleted-list"><li style="list-style-type:disc"><strong>Headers</strong>:<ul id="14dd17ff-5988-8027-b472-c2a47535c1c5" class="bulleted-list"><li style="list-style-type:circle"><code>Authorization</code>: Bearer token (required)</li></ul><ul id="14dd17ff-5988-80ac-844c-d49411cb4f43" class="bulleted-list"><li style="list-style-type:circle"><code>Content-Type</code>: application/json</li></ul></li></ul><ul id="14dd17ff-5988-8075-bc98-c64ad7ea44b3" class="bulleted-list"><li style="list-style-type:disc"><strong>Sample Response</strong>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-8045-966d-f565442445b4" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;message&quot;: &quot;Student check-in updated successfully.&quot;
+}</code></pre></li></ul><ul id="14dd17ff-5988-80d3-b64f-e56976b5647e" class="bulleted-list"><li style="list-style-type:disc"><strong>Use Case</strong>: Allows staff to update the check-in status of individual students during peak check-in times.</li></ul><hr id="14dd17ff-5988-8019-b4bd-e27e92222bd7"/><p id="14dd17ff-5988-8086-9284-e6abd12db8f6" class=""><strong>3. PUT /assignments</strong></p><p id="14dd17ff-5988-803b-b03a-c07f6562aa8b" class="">Modifies housing assignments for a specific student.</p><ul id="14dd17ff-5988-8013-8369-fa493a122c5b" class="bulleted-list"><li style="list-style-type:disc"><strong>Parameters (Body)</strong>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-802d-a803-f76d8d49a163" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;student_id&quot;: &quot;12345&quot;,
+  &quot;assignment&quot;: &quot;Dorm 3, Room 202&quot;
+}</code></pre></li></ul><ul id="14dd17ff-5988-80e4-b86c-f79f206e2e23" class="bulleted-list"><li style="list-style-type:disc"><strong>Headers</strong>:<ul id="14dd17ff-5988-803f-9079-d0187d99ead0" class="bulleted-list"><li style="list-style-type:circle"><code>Authorization</code>: Bearer token (required)</li></ul><ul id="14dd17ff-5988-80e1-b5d9-efd09805ae4b" class="bulleted-list"><li style="list-style-type:circle"><code>Content-Type</code>: application/json</li></ul></li></ul><ul id="14dd17ff-5988-808b-a70b-e2bc6178185b" class="bulleted-list"><li style="list-style-type:disc"><strong>Sample Response</strong>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-8023-938b-d761cfd0eef9" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;message&quot;: &quot;Housing assignment updated successfully.&quot;
+}</code></pre></li></ul><ul id="14dd17ff-5988-8032-b5cc-e5443049814d" class="bulleted-list"><li style="list-style-type:disc"><strong>Use Case</strong>: Provides flexibility to reassign housing accommodations dynamically.</li></ul><hr id="14dd17ff-5988-80b4-b4a8-c7e62c3ddd8f"/><p id="14dd17ff-5988-80a8-b8d1-cbcb06f001d4" class=""><strong>4. POST /batchcheckin</strong></p><p id="14dd17ff-5988-8044-aaac-ffaca34e12d0" class="">Processes check-ins for multiple students in bulk.</p><ul id="14dd17ff-5988-8040-bf82-ff0bc7456235" class="bulleted-list"><li style="list-style-type:disc"><strong>Parameters (Body)</strong>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-80c6-8f43-ee25cccf6a4f" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;students&quot;: [
+    { &quot;student_id&quot;: &quot;12345&quot;, &quot;status&quot;: &quot;Checked-In&quot; },
+    { &quot;student_id&quot;: &quot;67890&quot;, &quot;status&quot;: &quot;Checked-In&quot; }
+  ]
+}</code></pre></li></ul><ul id="14dd17ff-5988-802b-9fe2-ed0226a7cc05" class="bulleted-list"><li style="list-style-type:disc"><strong>Headers</strong>:<ul id="14dd17ff-5988-8021-94d6-d0eac9ceb697" class="bulleted-list"><li style="list-style-type:circle"><code>Authorization</code>: Bearer token (required)</li></ul><ul id="14dd17ff-5988-8038-9af4-cc44a72d028f" class="bulleted-list"><li style="list-style-type:circle"><code>Content-Type</code>: application/json</li></ul></li></ul><ul id="14dd17ff-5988-8053-8079-e49b47ed4f5f" class="bulleted-list"><li style="list-style-type:disc"><strong>Sample Response</strong>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-8088-a9c0-c18c8b99a32d" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;message&quot;: &quot;Batch check-in completed successfully.&quot;
+}</code></pre></li></ul><ul id="14dd17ff-5988-803e-abb8-f8428affe733" class="bulleted-list"><li style="list-style-type:disc"><strong>Use Case</strong>: Reduces processing time during peak hours by enabling staff to update multiple records simultaneously.</li></ul><hr id="14dd17ff-5988-802c-b982-d4160bb8ec62"/><h3 id="14dd17ff-5988-80bb-8afa-fbd6e9116ae6" class=""><strong>Authentication</strong></h3><p id="14dd17ff-5988-80e4-8c60-c49fedcd0ad1" class="">All API endpoints require token-based authentication. Tokens must be included in the <code>Authorization</code> header as a Bearer token.</p><ul id="14dd17ff-5988-8070-93b3-c7304a005b82" class="bulleted-list"><li style="list-style-type:disc"><strong>Login Process</strong>:Use the <code>/login</code> endpoint to obtain a token. The token is valid for 24 hours.</li></ul><hr id="14dd17ff-5988-805e-a684-c87463ce9ee8"/><h3 id="14dd17ff-5988-80dd-b390-cb71be6a4c0c" class=""><strong>Error Responses</strong></h3><p id="14dd17ff-5988-80e1-b9c8-f9ca0cf85636" class="">Each API returns standardized error messages. Here are common scenarios:</p><ul id="14dd17ff-5988-8052-b7fe-f3bdad053cfd" class="bulleted-list"><li style="list-style-type:disc"><strong>401 Unauthorized</strong>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-800b-b1d1-f72928e15ead" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;error&quot;: &quot;Unauthorized access. Please provide a valid token.&quot;
+}</code></pre><p id="14dd17ff-5988-80b9-8f76-cb61c9e84cfc" class=""><strong>Reason</strong>: Token is missing or invalid.</p></li></ul><ul id="14dd17ff-5988-802b-bfdf-c03a6c3e292b" class="bulleted-list"><li style="list-style-type:disc"><strong>400 Bad Request</strong>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-8057-89a9-ef5b2c57d66e" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;error&quot;: &quot;Invalid input. Please check the request parameters.&quot;
+}</code></pre><p id="14dd17ff-5988-80e0-8226-d042d78027c7" class=""><strong>Reason</strong>: Request body or parameters do not meet validation rules.</p></li></ul><ul id="14dd17ff-5988-8085-ae86-c0fcc7c60169" class="bulleted-list"><li style="list-style-type:disc"><strong>500 Internal Server Error</strong>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-8016-a17b-cd62098823bc" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;error&quot;: &quot;An unexpected error occurred. Please try again later.&quot;
+}</code></pre><p id="14dd17ff-5988-805c-b9b6-e6d253c2b6f8" class=""><strong>Reason</strong>: Server-side issues.</p></li></ul><hr id="14dd17ff-5988-80c0-abe9-c540ea7e4e78"/><h1 id="14dd17ff-5988-80dc-8eff-ddc6757eeab2" class=""><strong>User Documentation</strong></h1><h2 id="14dd17ff-5988-8015-880b-c6ea6fdb5789" class=""><strong>Staff Dashboard</strong></h2><p id="14dd17ff-5988-80ac-a796-f9640e66bead" class="">The dashboard is the primary interface for staff to manage the check-in process.</p><ul id="14dd17ff-5988-8009-aac2-ea8b99f15ff0" class="bulleted-list"><li style="list-style-type:disc"><strong>Login</strong>:<ul id="14dd17ff-5988-8035-bde0-da14c0f15af0" class="bulleted-list"><li style="list-style-type:circle">Navigate to the secure portal at <code>[internal URL]</code>.</li></ul><ul id="14dd17ff-5988-8066-a4a7-f227adc86bc1" class="bulleted-list"><li style="list-style-type:circle">Use CMU credentials for authentication.</li></ul><ul id="14dd17ff-5988-8071-97ff-c42f4585ecb5" class="bulleted-list"><li style="list-style-type:circle">Multi-factor authentication (MFA) is enabled for added security.</li></ul></li></ul><ul id="14dd17ff-5988-806c-bd0b-ec1489ca4285" class="bulleted-list"><li style="list-style-type:disc"><strong>View Check-In Status</strong>:<ul id="14dd17ff-5988-804b-b2cd-f65e702e43d0" class="bulleted-list"><li style="list-style-type:circle">The main dashboard displays all students with their current check-in statuses.</li></ul><ul id="14dd17ff-5988-8047-885a-e2b26f6e3141" class="bulleted-list"><li style="list-style-type:circle">Use the search bar to filter by student name or ID.</li></ul><ul id="14dd17ff-5988-803c-bcb0-ff02c6225a04" class="bulleted-list"><li style="list-style-type:circle">Real-time updates ensure that the dashboard reflects the latest status.</li></ul></li></ul><ul id="14dd17ff-5988-8055-b073-e213013d4c53" class="bulleted-list"><li style="list-style-type:disc"><strong>Batch Processing</strong>:<ul id="14dd17ff-5988-805b-aae5-c74d7741350f" class="bulleted-list"><li style="list-style-type:circle">Upload a CSV file containing student IDs and statuses to perform bulk updates.</li></ul><ul id="14dd17ff-5988-8081-a6ad-f8b4ffe94885" class="bulleted-list"><li style="list-style-type:circle">The system validates the file format and highlights any errors for correction before processing.</li></ul></li></ul><h2 id="14dd17ff-5988-80a7-98f4-f83de5ac6b4b" class=""><strong>Troubleshooting</strong></h2><p id="14dd17ff-5988-808a-9a45-e7619dd22d6d" class="">Common issues and their resolutions:</p><ul id="14dd17ff-5988-80b6-8b08-ea70c86f5c56" class="bulleted-list"><li style="list-style-type:disc"><strong>Issue</strong>: Students are missing from the dashboard.<ul id="14dd17ff-5988-80e0-b6ec-c5ced4fc160c" class="bulleted-list"><li style="list-style-type:circle"><strong>Cause</strong>: The student database sync may have failed.</li></ul><ul id="14dd17ff-5988-8036-a1de-ed3879b55101" class="bulleted-list"><li style="list-style-type:circle"><strong>Resolution</strong>: Verify the scheduled database sync logs and run the sync script manually if necessary.</li></ul></li></ul><ul id="14dd17ff-5988-80a1-ba64-ce83c5dbce8f" class="bulleted-list"><li style="list-style-type:disc"><strong>Issue</strong>: Unable to update a student’s check-in status.<ul id="14dd17ff-5988-8048-91d1-c9b77fe03a76" class="bulleted-list"><li style="list-style-type:circle"><strong>Cause</strong>: API connection or database errors.</li></ul><ul id="14dd17ff-5988-805d-b6d7-d91948c111ad" class="bulleted-list"><li style="list-style-type:circle"><strong>Resolution</strong>: Check API health using the <code>/health</code> endpoint. Review server logs for error details.</li></ul></li></ul><ul id="14dd17ff-5988-803c-a0d2-f2c6627b78c0" class="bulleted-list"><li style="list-style-type:disc"><strong>Issue</strong>: Housing assignment changes are not saving.<ul id="14dd17ff-5988-8015-8d2d-c689b3b289f8" class="bulleted-list"><li style="list-style-type:circle"><strong>Cause</strong>: Input validation errors.</li></ul><ul id="14dd17ff-5988-8073-a4e0-ceac88215790" class="bulleted-list"><li style="list-style-type:circle"><strong>Resolution</strong>: Ensure the room number follows the correct format (e.g., Dorm X, Room XXX).</li></ul></li></ul><hr id="14dd17ff-5988-8026-8217-faa3a926c13f"/><h1 id="14dd17ff-5988-806d-8f88-e96184044532" class=""><strong>Maintenance Guide</strong></h1><h2 id="14dd17ff-5988-807b-821f-db6e0b64fdc1" class=""><strong>Database Integration</strong></h2><ul id="14dd17ff-5988-801d-95cf-f64f14312d6c" class="bulleted-list"><li style="list-style-type:disc"><strong>Scheduled Syncs</strong>:<ul id="14dd17ff-5988-80ce-9473-d3ac531226bd" class="bulleted-list"><li style="list-style-type:circle">A cron job runs daily at midnight to sync the student database with the system.</li></ul><ul id="14dd17ff-5988-806f-aaa5-cdede4b3f583" class="bulleted-list"><li style="list-style-type:circle">The sync script is located at <code>/scripts/db_sync.sh</code> and can be triggered manually.</li></ul></li></ul><ul id="14dd17ff-5988-80c3-9093-d34ac2b56669" class="bulleted-list"><li style="list-style-type:disc"><strong>Error Handling</strong>:<ul id="14dd17ff-5988-8080-9df9-ce0859c72459" class="bulleted-list"><li style="list-style-type:circle">Sync errors are logged in <code>/logs/db_sync_errors.log</code>.</li></ul><ul id="14dd17ff-5988-8037-b159-c2d96299b8ff" class="bulleted-list"><li style="list-style-type:circle">Use the <code>-dry-run</code> flag during testing to avoid overwriting live data.</li></ul></li></ul><h2 id="14dd17ff-5988-80d0-b868-e1cecc793949" class=""><strong>Logging</strong></h2><ul id="14dd17ff-5988-80af-8868-fddf1bb844f6" class="bulleted-list"><li style="list-style-type:disc"><strong>API Logs</strong>:<ul id="14dd17ff-5988-8034-b19a-c7266b6a7509" class="bulleted-list"><li style="list-style-type:circle">All API interactions are logged in <code>/logs/api_access.log</code> for auditing purposes.</li></ul><ul id="14dd17ff-5988-80d4-8780-f66ed5eb62d9" class="bulleted-list"><li style="list-style-type:circle">Errors are logged in <code>/logs/api_errors.log</code> with timestamps and request details.</li></ul></li></ul><ul id="14dd17ff-5988-802f-99b3-c56bece2820f" class="bulleted-list"><li style="list-style-type:disc"><strong>System Logs</strong>:<ul id="14dd17ff-5988-8084-a375-f61261195ff2" class="bulleted-list"><li style="list-style-type:circle">General system activity is logged in <code>/logs/system.log</code>.</li></ul><ul id="14dd17ff-5988-8019-ac62-dc20f06beb8f" class="bulleted-list"><li style="list-style-type:circle">Logs are rotated weekly to manage disk space.</li></ul></li></ul><h2 id="14dd17ff-5988-8011-9949-f0d8506b15a4" class=""><strong>Version Control</strong></h2><ul id="14dd17ff-5988-80bf-a059-df3c3d75edd5" class="bulleted-list"><li style="list-style-type:disc"><strong>Semantic Versioning</strong>:<ul id="14dd17ff-5988-8049-bf4e-cdfc1d93b47a" class="bulleted-list"><li style="list-style-type:circle">The system follows semantic versioning (e.g., <code>1.2.3</code> where <code>1</code> is the major version, <code>2</code> is minor, and <code>3</code> is a patch).</li></ul><ul id="14dd17ff-5988-8093-b69d-e608a6fade7a" class="bulleted-list"><li style="list-style-type:circle">Each release is tagged in the Git repository for easy rollback if necessary.</li></ul></li></ul><ul id="14dd17ff-5988-8025-bb0c-d551ea3d4706" class="bulleted-list"><li style="list-style-type:disc"><strong>Deployment</strong>:<ul id="14dd17ff-5988-8035-8755-ca3f489cbe65" class="bulleted-list"><li style="list-style-type:circle">Deployment is managed via a CI/CD pipeline using GitHub Actions.</li></ul><ul id="14dd17ff-5988-8051-9653-e999fac6c6c7" class="bulleted-list"><li style="list-style-type:circle">Deployment scripts are located in <code>/deployment/</code> and include staging and production configurations.</li></ul></li></ul><h2 id="14dd17ff-5988-8031-8f63-cfad8cb2caaf" class=""><strong>Routine Maintenance Tasks</strong></h2><ul id="14dd17ff-5988-8089-941d-cc5678d0572b" class="bulleted-list"><li style="list-style-type:disc"><strong>Database Backup</strong>:<ul id="14dd17ff-5988-805e-82ca-db1b6e1ec0ad" class="bulleted-list"><li style="list-style-type:circle">Weekly backups are scheduled every Sunday at 3 AM.</li></ul><ul id="14dd17ff-5988-804f-9818-ca2c890dbad6" class="bulleted-list"><li style="list-style-type:circle">Backup files are stored in <code>/backups/db/</code> with a 30-day retention policy.</li></ul></li></ul><ul id="14dd17ff-5988-802b-b376-cd1f7f5545f8" class="bulleted-list"><li style="list-style-type:disc"><strong>API Health Checks</strong>:<ul id="14dd17ff-5988-80e1-99bf-f3541535292f" class="bulleted-list"><li style="list-style-type:circle">A <code>/health</code> endpoint is available to monitor API status. Schedule a cron job to ping this endpoint every 10 minutes.</li></ul><ul id="14dd17ff-5988-809f-b51e-e3c771a12250" class="bulleted-list"><li style="list-style-type:circle">Example health check response:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-807f-b1d4-eb5430ca58c2" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;status&quot;: &quot;healthy&quot;,
+  &quot;uptime&quot;: &quot;102 days&quot;,
+  &quot;last_checked&quot;: &quot;2024-11-28T10:00:00Z&quot;
+}</code></pre></li></ul></li></ul><ul id="14dd17ff-5988-800c-b75b-e8e8f130c0ae" class="bulleted-list"><li style="list-style-type:disc"><strong>System Updates</strong>:<ul id="14dd17ff-5988-805b-8e1b-ea4eb710b0db" class="bulleted-list"><li style="list-style-type:circle">Review system dependencies monthly and apply patches or updates as needed.</li></ul><ul id="14dd17ff-5988-80c4-9b87-f9eaea742178" class="bulleted-list"><li style="list-style-type:circle">Use the script <code>/scripts/update_dependencies.sh</code> to check for outdated packages.</li></ul></li></ul><h2 id="14dd17ff-5988-800e-9b61-fdf9cb64ca87" class=""><strong>Future Enhancements</strong></h2><ul id="14dd17ff-5988-8017-bcdb-d20c265e5cb2" class="bulleted-list"><li style="list-style-type:disc"><strong>Real-Time Notifications</strong>:<ul id="14dd17ff-5988-8089-92b4-c6b8c47eff05" class="bulleted-list"><li style="list-style-type:circle">Implement push notifications for staff to receive updates on system errors or sync failures.</li></ul></li></ul><ul id="14dd17ff-5988-807b-ae08-d6d674778c4a" class="bulleted-list"><li style="list-style-type:disc"><strong>Mobile App Development</strong>:<ul id="14dd17ff-5988-80c4-8491-facec80cdc29" class="bulleted-list"><li style="list-style-type:circle">A mobile app for the system could further enhance accessibility for staff during check-in events.</li></ul></li></ul><hr id="14dd17ff-5988-80cb-9c63-c895e59cce36"/><h1 id="14dd17ff-5988-804b-820c-f75ad04154f4" class=""><strong>Lessons Learned</strong></h1><ul id="14dd17ff-5988-8000-a904-c62debe881b5" class="bulleted-list"><li style="list-style-type:disc"><strong>Process Improvement</strong>: Streamlined workflows saved significant staff time.</li></ul><ul id="14dd17ff-5988-800e-9b10-c6ad67c470b1" class="bulleted-list"><li style="list-style-type:disc"><strong>Stakeholder Collaboration</strong>: Regular feedback from staff and oversight by the Director of Student Affairs ensured a user-centric solution.</li></ul><hr id="14dd17ff-5988-808d-9dab-f3a55a0707ab"/><h1 id="14dd17ff-5988-803c-b40b-e645235ff90e" class=""><strong>Impact</strong></h1><ul id="14dd17ff-5988-8031-b22d-d53288550855" class="bulleted-list"><li style="list-style-type:disc"><strong>Efficiency Gains</strong>: Estimated 300+ staff hours saved annually.</li></ul><ul id="14dd17ff-5988-802d-9298-eac2f15c0020" class="bulleted-list"><li style="list-style-type:disc"><strong>Error Reduction</strong>: Manual data entry errors reduced by 40%.</li></ul><ul id="14dd17ff-5988-801f-a0ee-e775369d449c" class="bulleted-list"><li style="list-style-type:disc"><strong>User Satisfaction</strong>: Positive feedback indicated high adoption and ease of use.</li></ul><hr id="14dd17ff-5988-80de-8540-c43bfe5d2f77"/><h1 id="14dd17ff-5988-801b-b078-f37229b59fa8" class=""><strong>Conclusion</strong></h1><p id="14dd17ff-5988-80f9-bd72-f3bd2470cdca" class="">The CMU Housing Check-In System is a testament to the power of thoughtful design and collaborative problem-solving. Its successful deployment has set a benchmark for streamlined administrative processes.</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
